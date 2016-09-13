@@ -1,18 +1,20 @@
-var http = require('http');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const config = require("./webpack.config.js");
+const open = require('open');
 
-
-http.createServer(function(request, response) {
-
-	// 发送 HTTP 头部 
-	// HTTP 状态值: 200 : OK
-	// 内容类型: text/plain
-	response.writeHead(200, {
-		'Content-Type': 'text/plain'
+// config.entry.app.unshift("webpack-dev-server/client?http://localhost:8080/");
+new WebpackDevServer(webpack(config), {
+		publicPath: '/assets/',
+		contentBase: './src/',
+		hot: true,
+		noInfo: true
+	})
+	.listen(8080, 'localhost', (err) => {
+		if (err) {
+			console.log(err);
+		}
+		console.log('Listening at localhost:' + 8080);
+		console.log('Opening your system browser...');
+		open('http://localhost:' + 8080);
 	});
-
-	// 发送响应数据 "Hello World"
-	response.end('Hello World\n');
-}).listen(8888);
-
-// 终端打印如下信息
-console.log('Server running at http://127.0.0.1:8888/');

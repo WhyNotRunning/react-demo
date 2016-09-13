@@ -1,18 +1,48 @@
 const webpack = require('webpack');
-
+const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require("path");
 module.exports = {
-	entry: './src/app.js',
+	scripts: {
+		start: "webpack-dev-server --inline --hot",
+		build: "webpack --display-error-details",
+		watch: "webpack --progress --colors --watch"
+	},
+	//entry 是页面入口文件配置
+	entry: [
+		'webpack-dev-server/client?http://localhost:8080/',
+		'webpack/hot/dev-server',
+		'./src/app.js'
+	],
+	//output 是对应输出项配置
 	output: {
-		path: './bin',
-		filename: 'app.bundle.js',
+		filename: '[name].js',
+		path: path.resolve(__dirname, 'dist/assets/')
 	},
 	module: {
+		//加载器配置
 		loaders: [{
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
 			loader: 'babel-loader',
+			query: {
+				presets: ['es2015', 'react']
+			},
+		}, { //.css 文件使用 style-loader 和 css-loader 来处理
+			test: /\.css$/,
+			exclude: /node_modules/,
+			loader: 'style-loader!css-loader'
+		}, { //.scss 文件使用 style-loader、css-loader 和 sass-loader 来编译处理
+			test: /\.scss$/,
+			exclude: /node_modules/,
+			loader: 'style!css!sass?sourceMap'
+		}, { //图片文件使用 url-loader 来处理，小于8kb的直接转为base64
+			test: /\.(png|jpg)$/,
+			exclude: /node_modules/,
+			loader: 'url-loader?limit=8192'
 		}]
 	},
+	//插件项
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({
 			compress: {
@@ -21,9 +51,22 @@ module.exports = {
 			output: {
 				comments: false,
 			},
-			mangle: {
-				except: ['$super', '$', 'exports', 'require']
-			}
 		}),
-	]
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': '"development"'
+		}),
+		new webpack.HotModuleReplacementPlugin()
+	],
+	resolve: {
+		//查找module的话从这里开始查找
+		// root: 'E:/github/flux-example/src', //绝对路径
+		//自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
+		extensions: ['', '.js', '.jsx', '.json', '.scss'],
+		//模块别名定义，方便后续直接引用别名，无须多写长长的地址
+		alias: {
+			// AppStore: 'js/stores/AppStores.js', //后续直接 require('AppStore') 即可
+			// ActionType: 'js/actions/ActionType.js',
+			// AppAction: 'js/actions/AppAction.js'
+		}
+	}
 }
