@@ -10,11 +10,11 @@ new WebpackDevServer(webpack(config), {
 		hot: true,
 		noInfo: true
 	})
-	.listen(8080, 'localhost', (err) => {
+	.listen(9000, 'localhost', (err) => {
 		if (err) {
 			console.log(err);
 		}
-		console.log('Listening at localhost:' + 8080);
+		console.log('Listening at localhost:' + 9000);
 		console.log('Opening your system browser...');
-		open('http://localhost:' + 8080);
+		open('http://localhost:' + 9000);
 	});

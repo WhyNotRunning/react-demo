@@ -10,7 +10,7 @@ module.exports = {
 	},
 	//entry 是页面入口文件配置
 	entry: [
-		'webpack-dev-server/client?http://localhost:8080/',
+		'webpack-dev-server/client?http://localhost:9000/',
 		'webpack/hot/dev-server',
 		'./src/app.js'
 	],
@@ -40,18 +40,21 @@ module.exports = {
 			test: /\.(png|jpg)$/,
 			exclude: /node_modules/,
 			loader: 'url-loader?limit=8192'
+		}, {
+			test: /\.json$/,
+			loader: 'json-loader'
 		}]
 	},
 	//插件项
 	plugins: [
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false,
-			},
-			output: {
-				comments: false,
-			},
-		}),
+		// new webpack.optimize.UglifyJsPlugin({
+		// 	compress: {
+		// 		warnings: false,
+		// 	},
+		// 	output: {
+		// 		comments: false,
+		// 	},
+		// }),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': '"development"'
 		}),
