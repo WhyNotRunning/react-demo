@@ -3,7 +3,8 @@ import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom';
 import Hello from './components/hello'
-import Header from './components/Header/Header'
+import Header from './components/header/header'
+import Banner from './components/banner/banner'
 // import CallApply from './function/caller-callee-call-apply'
 import './scss/reactdemo'
 
@@ -16,7 +17,14 @@ import './scss/reactdemo'
 // 	<Hello name="World" />,
 // 	document.getElementById('container')
 // );
-
+var BodyDom = React.createClass({
+	render: function() {
+		return <div>
+			<Header />
+			<Banner arrange={{background:"#2776E4 url(../images/h5.jpg) no-repeat center center",height:"284px"}}/>
+		</div>;
+	}
+});
 ReactDOM.render(
-	<Header/>, document.body
+	<BodyDom />, document.body
 );
