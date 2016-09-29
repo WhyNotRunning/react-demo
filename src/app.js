@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import Hello from './components/hello'
 import Header from './components/header/header'
 import Banner from './components/banner/banner'
+import Container from './components/container/container'
+import PageFooter from './components/footer/footer'
 // import CallApply from './function/caller-callee-call-apply'
 import './scss/reactdemo'
 
@@ -22,6 +24,8 @@ var BodyDom = React.createClass({
 		return <div>
 			<Header />
 			<Banner arrange={{background:"#2776E4 url(../images/h5.jpg) no-repeat center center",height:"284px"}}/>
+			<Container />
+			<PageFooter />
 		</div>;
 	}
 });

@@ -1,0 +1,52 @@
+
+.page-footer {
+		border-top: 1px solid #d9d8d8;
+		background-color:#f0f0f0;
+	.footer-inner {
+		
+		width:1200px;
+		margin: 10px auto;
+		padding: 0 0 30px;
+		@include clearfix();
+
+		dl {
+			float: left;
+			width: 30%;
+			color: #4a4a4a;
+			margin: 0;
+			font-size: 12px;
+
+			dt {
+				font-size:18px;
+				padding:10px 0;
+			}
+			dd {
+				margin: 0;
+				padding:0;
+				ul{
+					margin: 0;
+					padding:0;
+					li {
+						margin: 0;
+						padding:0;
+						list-style: none;
+						float: left;
+						width: 48%;
+
+						a {
+							color: #4a4a4a;
+							line-height: 24px;
+							&:hover {
+								color: #AD7328;
+							}
+						}
+					}
+				}
+
+				p {
+					margin: 0 0 10px;
+				}
+			}
+		}
+	}
+}
