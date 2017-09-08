@@ -1,5 +1,6 @@
-body {font: 14px/1.5 jaf-bernino-sans, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;}
+@import "../../../scss/index";
 
+body {font: 14px/1.5 jaf-bernino-sans, 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;}
 .page-header {
 	width: 1200px;
 	height: 90px;
@@ -10,7 +11,7 @@ body {font: 14px/1.5 jaf-bernino-sans, 'Lucida Grande', 'Lucida Sans Unicode', '
 	.logo {
 		width: 236px;
 		height: 80px;
-		background: url(../images/logo.png) no-repeat center center;
+		background: url(../../../images/logo.png) no-repeat center center;
 	}
 	.rss {
 		width: 60px;
@@ -18,7 +19,7 @@ body {font: 14px/1.5 jaf-bernino-sans, 'Lucida Grande', 'Lucida Sans Unicode', '
 		position: absolute;
 		top: 54px;
 		right: 0;
-		background: url(../images/rss.png) no-repeat 0 0;
+		background: url(../../../images/rss.png) no-repeat 0 0;
 
 	}
 	.page-nav {

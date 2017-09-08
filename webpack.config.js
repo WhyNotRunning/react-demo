@@ -4,7 +4,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const WebpackMd5Hash = require('webpack-md5-hash');
 const path = require("path");
 const buildPath = path.resolve(__dirname,'dist/assets/');
-const nodeModulesPath = path.resolve(__dirname,'node_modules');
+const modelsPath = path.resolve(__dirname,'src/models');
+const routesPath = path.resolve(__dirname,'src/routes');
+const servicesPath = path.resolve(__dirname,'src/services');
 const componentsPath = path.resolve(__dirname,'src/components/');
 module.exports = {
 	scripts: {
@@ -16,7 +18,7 @@ module.exports = {
 	entry: [
 		'webpack-dev-server/client?http://localhost:9000/',
 		'webpack/hot/dev-server',
-		'./src/app.js'
+		'./src/index.js'
 	],
 	//output 是对应输出项配置
 	output: {
@@ -87,9 +89,9 @@ module.exports = {
 		extensions: ['', '.coffee', '.js', '.coffee', '.jsx', '.json', '.scss'],
 		//模块别名定义，方便后续直接引用别名，无须多写长长的地址
 		alias: {
-			'Banner': path.join(componentsPath, 'banner/banner'),//后续直接 import Banner from 'banner'/require('banner') 即可
-			'Header': path.join(componentsPath, 'Header/Header'),
-			'PageFooter': path.join(componentsPath, 'footer/footer'),
+			'components': path.join(componentsPath, 'index'),//后续直接 import Banner from 'banner'/require('banner') 即可
+            // 'models': path.join(componentsPath, 'footer/footer'),
+            // 'PageFooter': path.join(componentsPath, 'footer/footer'),
 		}
 	}
 }
