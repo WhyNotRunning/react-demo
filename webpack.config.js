@@ -1,7 +1,11 @@
 const webpack = require('webpack');
 const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const WebpackMd5Hash = require('webpack-md5-hash');
 const path = require("path");
+const buildPath = path.resolve(__dirname,'dist/assets/');
+const nodeModulesPath = path.resolve(__dirname,'node_modules');
+const componentsPath = path.resolve(__dirname,'src/components/');
 module.exports = {
 	scripts: {
 		start: "webpack-dev-server --inline --hot",
@@ -16,9 +20,15 @@ module.exports = {
 	],
 	//output 是对应输出项配置
 	output: {
-		filename: '[name].js',
-		path: path.resolve(__dirname, 'dist/assets/')
+		path: buildPath,
+		filename: '[name].js'
 	},
+	// Example CDN
+	/*output: {
+	    path: "src/[hash]",
+	    publicPath: "./assets/[hash]/"
+	}*/
+
 	module: {
 		//加载器配置
 		loaders: [{
@@ -47,29 +57,39 @@ module.exports = {
 	},
 	//插件项
 	plugins: [
-		// new webpack.optimize.UglifyJsPlugin({
-		// 	compress: {
-		// 		warnings: false,
-		// 	},
-		// 	output: {
-		// 		comments: false,
-		// 	},
-		// }),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false,
+			},
+			output: {
+				comments: false,
+			},
+		}),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': '"development"'
 		}),
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),//如果是server.js好像需要开启
+		new webpack.optimize.OccurenceOrderPlugin(),
+		/*new HtmlWebpackPlugin({
+			inject:true,
+			excludeChunks:['test'],
+			template:'src/index.html',
+			favicon: 'src/img/favicon.ico'
+		}),*/
+		/*new ExtractTextPlugin(__dirname+"scss/[name].[hash].scss"),*/
+		new webpack.NoErrorsPlugin(),
+		new WebpackMd5Hash()
 	],
 	resolve: {
 		//查找module的话从这里开始查找
 		// root: 'E:/github/flux-example/src', //绝对路径
 		//自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名
-		extensions: ['', '.js', '.jsx', '.json', '.scss'],
+		extensions: ['', '.coffee', '.js', '.coffee', '.jsx', '.json', '.scss'],
 		//模块别名定义，方便后续直接引用别名，无须多写长长的地址
 		alias: {
-			// AppStore: 'js/stores/AppStores.js', //后续直接 require('AppStore') 即可
-			// ActionType: 'js/actions/ActionType.js',
-			// AppAction: 'js/actions/AppAction.js'
+			'Banner': path.join(componentsPath, 'banner/banner'),//后续直接 import Banner from 'banner'/require('banner') 即可
+			'Header': path.join(componentsPath, 'Header/Header'),
+			'PageFooter': path.join(componentsPath, 'footer/footer'),
 		}
 	}
 }
